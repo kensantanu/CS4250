@@ -92,6 +92,7 @@ def crawler_thread(frontier):
     """ The Crawler to crawl the URLs and HTML contents"""
     targets_found = 0
     num_targets = 10
+    target_urls = []  # To store the urls of the target pages
     crawled_pages = []  # List of crawled pages to check for duplicate before adding to the frontier
     counter = 0  # id of the page when adding to the MongoDB collection
     while not frontier.done():
@@ -105,6 +106,7 @@ def crawler_thread(frontier):
             if target_page(html):
                 print(f"1 target page found: {url}")
                 targets_found += 1
+                target_urls.append(url)
             if targets_found == num_targets:
                 frontier.clear_frontier()  # Clear the frontier
             else:
@@ -121,14 +123,4 @@ def crawler_thread(frontier):
                     if full_url not in frontier.urls and full_url not in crawled_pages:
                         frontier.add_url(full_url)
 
-
-def main():
-    """ Main Program to run the crawler """
-    base_url = "https://www.cpp.edu/sci/biological-sciences/index.shtml"
-    frontier = Frontier()
-    frontier.add_url(base_url)
-    crawler_thread(frontier)
-
-
-if __name__ == '__main__':
-    main()
+    return target_urls

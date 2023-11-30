@@ -11,25 +11,27 @@ from bs4 import BeautifulSoup
 from db_connection import *
 
 
-def main():
+def parsing_faculty_page(target_urls):
     # Connect to the database
     db = connectDataBase()
     pages = db.pages
     # Create a collection to store the professors' info
-    professors = db.professors
-    faculty_urls = ['https://www.cpp.edu/faculty/alas',
-                    'https://www.cpp.edu/faculty/parensburger/index.shtml',
-                    'https://www.cpp.edu/faculty/nebuckley/',
-                    'https://www.cpp.edu/faculty/jear/index.shtml',
-                    'https://www.cpp.edu/faculty/junjunliu/',
-                    'https://www.cpp.edu/faculty/ejquestad/index.shtml',
-                    'https://www.cpp.edu/faculty/jaysonsmith/index.shtml',
-                    'https://www.cpp.edu/faculty/jcsnyder/index.shtml',
-                    'https://www.cpp.edu/faculty/adsteele/',
-                    'https://www.cpp.edu/faculty/aavaldes/index.shtml']
+    faculty = db.faculty
+
+    # faculty_urls = ['https://www.cpp.edu/faculty/alas',
+    #                 'https://www.cpp.edu/faculty/parensburger/index.shtml',
+    #                 'https://www.cpp.edu/faculty/nebuckley/',
+    #                 'https://www.cpp.edu/faculty/jear/index.shtml',
+    #                 'https://www.cpp.edu/faculty/junjunliu/',
+    #                 'https://www.cpp.edu/faculty/ejquestad/index.shtml',
+    #                 'https://www.cpp.edu/faculty/jaysonsmith/index.shtml',
+    #                 'https://www.cpp.edu/faculty/jcsnyder/index.shtml',
+    #                 'https://www.cpp.edu/faculty/adsteele/',
+    #                 'https://www.cpp.edu/faculty/aavaldes/index.shtml']
+
     counter = 1
     # Retrieve the recorded page based on the provided URL
-    for professor_url in faculty_urls:
+    for professor_url in target_urls:
         print(professor_url)
         result = pages.find_one({'url': professor_url})
 
@@ -68,10 +70,6 @@ def main():
             print(content)
             print()
 
-            professor = {'_id': counter, 'url': professor_url, 'text': content}
-            professors.insert_one(professor)
+            professor = {'_id': counter, 'web': professor_url, 'text': content}
+            faculty.insert_one(professor)
             counter += 1
-
-
-if __name__ == '__main__':
-    main()
