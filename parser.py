@@ -3,7 +3,6 @@
 # SPECIFICATION: Read the Bio Faculty information, parse faculty members name, title, office, email, and website, and
 #                persist this data in MongoDB collection.
 # FOR: CS 4250- Group Project
-# TIME SPENT: 2 hours
 # -----------------------------------------------------------*/
 
 # importing some Python libraries
