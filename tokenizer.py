@@ -10,7 +10,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 def tokenize(document):
     vectorizer = CountVectorizer(
         lowercase=True,
-        token_pattern=r'\b\w+\b',  # Use a regex pattern to extract words & remove punctuation
+        token_pattern=r'\b\w{2,}\b',  # Exclude single-character words
         strip_accents='unicode',
     )
 
