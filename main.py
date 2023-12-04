@@ -29,7 +29,7 @@ def main():
 
     # Text Transformation
     print("Start transforming text...")
-    transform.tokenize()
+    transform.transform()
     print("Transforming finished!")
 
     # Index Creation
