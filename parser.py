@@ -45,26 +45,17 @@ def parsing_faculty_page(target_urls):
 
             content = ''
 
-            text_sections = len(bs.find_all('div', {'class': 'section-text'}))
+            # The text is located in three main sections: section-text, section-menu, and accolades
+            text_sections = bs.find_all('div', {'class': {'section-text', 'section-menu', 'accolades'}})
 
-            # Get the sections of each professor data
-            section_element = bs.find('div', {'class': 'section-text'})
-
-            while section_element.find_next('h2') and text_sections != 0:
-                section_element = section_element.find_next('h2')
-
-                for section in section_element:
-                    if section.get_text().strip() != '':
-                        content += section.get_text().strip().replace('\n', ' ')
+            # Get text in each section
+            for section in text_sections:
+                # Remove unrecognized characters (e.g. <0xa0>, Â)
+                content += (section.get_text(' ', strip=True)
+                                   .replace('Â', '')
+                                   .replace('\xa0', ' '))
+                # separate text sections by a space
                 content += ' '
-
-                section_element = section_element.find_next()
-                for section in section_element:
-                    if section.get_text().strip() != '':
-                        content += section.get_text().strip().replace('\n', ' ')
-                content += ' '
-
-                text_sections -= 1
 
             print(content)
             print()
