@@ -23,7 +23,7 @@ def transform():
         stopped_tokens = stopping.remove_common_words(tokens)
 
         # Apply stemming
-        stemmed_tokens = stemming.stem(stopped_tokens)\
+        stemmed_tokens = stemming.stem(stopped_tokens)
 
         # Save the processed tokens back to the database with the name 'tokens'
         faculty.update_one(
