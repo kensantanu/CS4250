@@ -61,8 +61,8 @@ def search(userQuery):
     # rankList = sorted(rankList, key=lambda x: list(x.values())[0], reverse=True)
     # rankList = [[key, value] for item in rankList for key, value in item.items()]
     webList = []
-    for id, tfidf in rankList:
+    for id, score in rankList:
         faculty = db.faculty.find({'_id': id})
         faculty = list(faculty)
-        webList.append(faculty[0]["web"])
+        webList.append([faculty[0]["web"], score])
     return webList
