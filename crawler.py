@@ -17,7 +17,7 @@ from urllib.error import URLError
 from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 import regex as re
-from pymongo import MongoClient
+from db_connection import *
 
 
 # Create a Frontier class to simulate a queue for the crawler to work on
@@ -63,10 +63,8 @@ def retrieve_url(url):
 def store_page(url, html, counter):
     """ Stores the page as a document in MongoDB database"""
     if html:
-        # Create an instance of MongoClient and informing the connection string
-        client = MongoClient(host=['localhost:27017'])
-        # Create a database
-        db = client.biology_department
+        # Connect to the database
+        db = connectDataBase()
         # Create a collection to save the pages
         pages = db.pages
         # Save the URL and HTML content
