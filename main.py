@@ -5,7 +5,7 @@
 #                   Next, this information will be collected, transformed, and saved in a database to enabling searching.
 #                   Finally, the user will be able to search for a query and the results will be displayed in the order of most relevant.
 # FOR: CS 4250 - Group Project
-# TIME SPENT: 9001 hours
+# TIME SPENT: 50 hours
 # -----------------------------------------------------------*/
 
 import crawler
@@ -38,15 +38,36 @@ def main():
     print("Index created!")
 
     # Ranking
-    userQuery = input("Enter a query: ")
-    print("Searching...")
-    results = ir_model.search(userQuery)
+    while True:
+        userQuery = input("Enter a query: ")
+        print("Searching...")
+        results = ir_model.search(userQuery)
 
-    print("Result:")
-    count = 0
-    for result in results:
-        print(count, result)
-        count += 1
+        print("Results:")
+        menu = "y"
+        count = 0
+        while menu == "y":
+            for i in range(5):
+                if count < len(results):
+                    print("=====================================")
+                    print(count + 1)
+                    print("Website:", results[count][0])
+                    print("Score:", results[count][1])
+                    count += 1
+                else:
+                    break
+            if count >= len(results):
+                break
+
+            print("\nThere are", len(results) - count, "more results.")
+            while True:
+                menu = input("Do you want to see more results? (y/n): ")
+                if menu == 'y' or menu == 'n':
+                    break
+                else:
+                    print("Invalid input. Please enter 'y' or 'n'.")
+
+        print("=====================================\n")
 
 if __name__ == '__main__':
     main()
