@@ -5,9 +5,9 @@
 # FOR: CS 4250- Group Project
 # -----------------------------------------------------------*/
 
-import tokenizer
-import stopping
-import stemming
+from indexing.transforming import tokenizer
+from indexing.transforming import stopping
+from indexing.transforming import stemming
 import db_connection
 
 def transform():

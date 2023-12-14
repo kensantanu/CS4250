@@ -8,11 +8,12 @@
 # TIME SPENT: 50 hours
 # -----------------------------------------------------------*/
 
-import crawler
-import parser
-import transform
-import indexer
-import ir_model
+from indexing.crawling import crawler
+from indexing.parsing import parser
+from indexing.transforming import transform
+from indexing import indexer
+from querying import ir_model
+
 
 def main():
     # Text Acquisition

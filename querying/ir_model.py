@@ -1,9 +1,6 @@
-import tokenizer
-import stopping
-import stemming
+from indexing.transforming import stopping, stemming, tokenizer
 import db_connection
 import pandas as pd
-import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
 def search(userQuery):
