@@ -31,7 +31,7 @@ def parsing_faculty_page(target_urls):
     counter = 1
     # Retrieve the recorded page based on the provided URL
     for professor_url in target_urls:
-        print(professor_url)
+        # print(professor_url)
         result = pages.find_one({'url': professor_url})
 
         # Check if the HTML content was found
@@ -57,8 +57,8 @@ def parsing_faculty_page(target_urls):
                 # separate text sections by a space
                 content += ' '
 
-            print(content)
-            print()
+            # print(content)
+            # print()
 
             professor = {'_id': counter, 'web': professor_url, 'text': content}
             faculty.insert_one(professor)
