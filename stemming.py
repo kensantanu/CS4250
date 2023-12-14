@@ -7,6 +7,13 @@
 import nltk
 from nltk.stem.snowball import SnowballStemmer
 
+# Download NLTK wordnet
+try:
+    nltk.data.find('corpora/wordnet')
+except LookupError:
+    print("WordNet not found. Downloading...")
+    nltk.download('wordnet')
+
 def stem(tokens):
     # Using lemmatizer
     lemma = nltk.wordnet.WordNetLemmatizer()

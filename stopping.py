@@ -8,7 +8,12 @@ from nltk.corpus import stopwords
 import nltk
 
 # Download NLTK stopwords dataset
-nltk.download('stopwords')
+try:
+    nltk.data.find('corpora/stopwords')
+except LookupError:
+    print("Stopwords not found. Downloading...")
+    nltk.download('stopwords')
+
 def remove_common_words(tokens):
     stop_words = set(stopwords.words('english'))
     terms = [term for term in tokens if term not in stop_words]
