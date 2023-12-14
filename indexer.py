@@ -1,3 +1,12 @@
+# -------------------------------------------------------------------------
+# FILENAME: indexer.py
+# SPECIFICATION: Connect to the MongoDB called biology_department and use the tokens from the faculty collection
+#                to create an inverted index collection where each token references which faculty documents it appears
+#                on. For each document that the term appears on we also calculate the TF-IDF term weight and store it.
+# FOR: CS 4250- Group Project
+# -----------------------------------------------------------*/
+
+# importing some Python libraries
 from collections import defaultdict
 from math import log
 import db_connection
@@ -54,23 +63,16 @@ def create_index():
                 existing_entry = index.find_one({'_id': token})  # Check if the term already exists in the index collection
 
                 if existing_entry:
-                    # Check if the document entry already exists for the current document
+                    # Check if the document entry already exists for the current document. If it does move on to next token
                     document_entry = next((doc for doc in existing_entry['documents'] if doc['document'] == document_id), None)
 
                     # Append a new document entry
                     if not document_entry:
                         existing_entry['documents'].append({'document': document_id, 'tf-idf': calculate_tf_idf(term_frequency, total_terms_in_document, document_frequency_dict[token], total_documents)})
+                        index.update_one({'_id': token}, {'$set': {'documents': existing_entry['documents']}})  # Update existing entry with the new document and tf-idf value
 
-                    index.update_one({'_id': token}, {'$set': {'documents': existing_entry['documents']}})  # Update existing entry with the new document and tf-idf value
                 else:
                     # Create a new entry in the index collection with tf-idf value
                     tf_idf = calculate_tf_idf(term_frequency, total_terms_in_document, document_frequency_dict[token], total_documents)
                     new_entry = {'_id': token, 'documents': [{'document': document_id, 'tf-idf': tf_idf}]}
                     index.insert_one(new_entry)
-
-#   for each faculty in faculty collection db:
-#       for each token in tokens:
-#           if new token: save token in index
-#           calculate tf-idf term weight
-#           save token & tf-idf in index collection
-#    after finished we should have an index collection in db
