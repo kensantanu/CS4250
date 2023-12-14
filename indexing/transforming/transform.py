@@ -8,7 +8,7 @@
 from indexing.transforming import tokenizer
 from indexing.transforming import stopping
 from indexing.transforming import stemming
-import db_connection
+from database import db_connection
 
 def transform():
     db = db_connection.connectDataBase()

@@ -17,7 +17,7 @@ from urllib.error import URLError
 from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 import regex as re
-from db_connection import *
+from database.db_connection import *
 
 
 # Create a Frontier class to simulate a queue for the crawler to work on

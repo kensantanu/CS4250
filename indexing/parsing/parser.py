@@ -7,7 +7,7 @@
 
 # importing some Python libraries
 from bs4 import BeautifulSoup
-from db_connection import *
+from database.db_connection import *
 
 
 def parsing_faculty_page(target_urls):

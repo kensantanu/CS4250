@@ -1,5 +1,11 @@
+# -------------------------------------------------------------------------
+# FILENAME: ir_model.py
+# SPECIFICATION: Process user query, retrieve and analyze index, calculates cosine similarity,
+# and returns a sorted list of faculty web links based on document relevance
+# FOR: CS 4250- Group Project
+# -----------------------------------------------------------*/
 from indexing.transforming import stopping, stemming, tokenizer
-import db_connection
+from database import db_connection
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 
@@ -14,7 +20,7 @@ def search(userQuery):
         # Apply stopping
     stopped_tokens = stopping.remove_common_words(tokens)
 
-        # Apply stemming
+    # Apply stemming
     stemmed_tokens = stemming.stem(stopped_tokens)
 
     # grab index from db

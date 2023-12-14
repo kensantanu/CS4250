@@ -9,7 +9,7 @@
 # importing some Python libraries
 from collections import defaultdict
 from math import log
-import db_connection
+from database import db_connection
 
 
 def calculate_tf_idf(term_frequency, total_terms_in_document, document_frequency, total_documents):
